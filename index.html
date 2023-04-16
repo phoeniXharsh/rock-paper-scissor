@@ -9,30 +9,34 @@
 </head>
 <body>
     <script>
+        let playerScore=0;
+        let computerScore = 0;
+
         function game(){
-            let playerScore, computerScore = 0;
-            function getComputerChoice(){
-                    let randomNumber = Math.floor(Math.random()*3);
+            for(let i=0; i<5; i++){
+                let randomNumber = Math.floor(Math.random()*3);
+
+                function getComputerChoice(){
                     if(randomNumber==0) return "ROCK";
                     else if(randomNumber == 1) return 'PAPER';
                     else return 'SCISSOR';
                 }
 
-            function playRound(playerSelection, computerSelection){
-                let win = (computerSelection=="ROCK" && playerSelection=="PAPER") ||
-                    (computerSelection=="SCISSOR" && playerSelection=="ROCK") ||
-                    (computerSelection=="PAPER" && playerSelection=="SCISSOR");
-                if(computerSelection==playerSelection) return "TIE";
-                if(win){
-                    playerScore++;
-                    console.log("You Win");
+                function playRound(playerSelection, computerSelection){
+                    let win = (computerSelection=="ROCK" && playerSelection=="PAPER") ||
+                        (computerSelection=="SCISSOR" && playerSelection=="ROCK") ||
+                        (computerSelection=="PAPER" && playerSelection=="SCISSOR");
+                    if(computerSelection==playerSelection) return "TIE";
+                    if(win){
+                        playerScore++;
+                        console.log("You Win");
+                    }
+                    else{
+                        computerScore++;
+                        console.log("You Lose");
+                    }
                 }
-                else{
-                    computerScore++;
-                    console.log("You Lose");
-                }
-            }
-            for(let i=0; i<5; i++){
+
                 let select = prompt("Enter your choice between rock, paper & scissor");
                 let playerSelection = select.toUpperCase();
                 let computerSelection = getComputerChoice();
@@ -41,11 +45,11 @@
                 console.log(`Player pick: ${playerSelection}`);
                 console.log(`Computer pick: ${computerSelection}`);
             }
-            game();
-
-            console.log(`Player Score: ${playerScore}`);
-            console.log(`Computer Score: ${computerScore}`);
         }
+        game();
+            
+        console.log(`Player Score: ${playerScore}`);
+        console.log(`Computer Score: ${computerScore}`);
     </script>
 </body>
 </html>
