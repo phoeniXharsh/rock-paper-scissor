@@ -10,14 +10,16 @@
 <body>
     <h1>Rock Paper Scissors</h1>
     <div id="button-container">
-        <button data-sign="0">Rock</button>
-        <button data-sign="1">Paper</button>
-        <button data-sign="2">Scissors</button>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <button id="play-again" onclick="reset()">Play Again</button>
     </div>
     <div id="results">
         <p id="player-score">Your score is: 0</p>
         <p id="computer-score">The computer score is: 0</p>
         <p id="tie-score">Tie rounds: 0</p>
+        <div id="final-result"></div>
     </div>
     <script src="script.js"></script>
 </body>

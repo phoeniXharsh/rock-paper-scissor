@@ -1,12 +1,11 @@
-const rockButton = document.getElementById("rock");
+const rockButton = document.getElementById('rock');
 const paperButton = document.getElementById("paper");
 const scissorButton = document.getElementById("scissors");
 const playerScore = document.getElementById('player-score');
 const computerScore = document.getElementById('computer-score');
 const tieScore = document.getElementById('tie-score');
-const ROCK = "rock";
-const PAPER = "paper";
-const SCISSOR = "scissor";
+const finalResult = document.getElementById('final-result');
+const playAgain = document.getElementById("play-again");
 
 
 let playerWinCount = 0;
@@ -16,9 +15,13 @@ let tieCount = 0;
 // Adding Event Listeners
 function clickListener(event) {
   const playerSelection = event.target.id;
+  console.log(event.target.id);
   const computerSelection = getComputerChoice();
+  console.log(computerSelection);
   playRound(playerSelection,computerSelection);
 }
+
+// playAgain.addEventListener("click", reset());
 
 rockButton.addEventListener("click", clickListener);
 paperButton.addEventListener("click", clickListener);
@@ -27,35 +30,33 @@ scissorButton.addEventListener("click", clickListener);
 
 
 function getComputerChoice() {
-  let rps = [ROCK, PAPER, SCISSOR];
+  let rps = ['rock', 'paper', 'scissors'];
   let randomNumber = Math.floor(Math.random() * 3);
   return rps[randomNumber];
 }
 
 function playRound(playerSelection, computerSelection) {
-  let win =
-    (computerSelection == ROCK && playerSelection == PAPER) ||
-    (computerSelection == SCISSOR && playerSelection == ROCK) ||
-    (computerSelection == PAPER && playerSelection == SCISSOR);
-
-  if (computerSelection == playerSelection) {
+  if (
+    (playerSelection === "rock" && computerSelection === "paper") ||
+    (playerSelection === "scissors" && computerSelection === "rock") ||
+    (playerSelection === "paper" && computerSelection === "scissors")
+  ) {
+    computerWin();
+  } else if (
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "paper")
+  ) {
+    playerWin();
+  } else if (playerSelection === computerSelection) {
     tie();
   }
-  if (win) {
-    playerWin();
-  } else {
-    computerWin();
+  if(playerWinCount==5){
+    finalResult.textContent = "Congratulations! You Won. Yay!";
   }
-
-  // if(computerWinCount == 5){
-  //   alert("Better luck next time");
-  //   reset();
-  // }
-  // else{
-  //   alert("Congratulations, You Won!");
-  //   reset();
-  // }
-
+  else if(computerWinCount== 5){
+    finalResult.textContent = "You lose. Better luck next time.";
+  }
 }
 
 function playerWin(){
@@ -74,7 +75,11 @@ function tie(){
 }
 
 function reset() {
-  playerScore.textContent = "Your Score is: 0";
-  computerScore.textContent = "Computer's Score is: 0";
-  tieScore.textContent = "Tie score is: 0";
+  playerScore.innerText = "Your Score is: 0";
+  computerScore.innerText = "Computer's Score is: 0";
+  tieScore.innerText = "Tie score is: 0";
+  finalResult.innerText = "";
+  playerWinCount = 0;
+  computerWinCount = 0;
+  tieCount = 0;
 }
